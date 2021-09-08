@@ -1,0 +1,21 @@
+services:
+  - docker
+
+before_install:
+  - docker build -t weenta/docker-vue .
+
+script:
+  - docker run -e CI=true weenta/docker-vue yarn test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "Docker-vue"
+  env: "Dockervue-env"
+  bucket_name: "elasticbeanstalk-us-east-2-234044377448"
+  bucket_path: "Docker-vue"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
