@@ -1,13 +1,9 @@
 FROM node:14-alpine as builder
-
 WORKDIR /app
-
 RUN npm install yarn
-
 COPY package.json .
 RUN yarn install
 COPY . .
-
 RUN yarn build
 
 FROM nginx
